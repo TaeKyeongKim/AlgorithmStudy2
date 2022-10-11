@@ -7,5 +7,5 @@
 
 import Foundation
 
-print("Hello, World!")
+print(threeSum([-1,0,1,2,-1,-4]))
 
