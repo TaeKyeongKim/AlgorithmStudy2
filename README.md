@@ -110,10 +110,10 @@ class Solution {
         
     }
   ```
-  - Time complexity: `O(n^2)`
+  - Time complexity: `O(n*m)`
 <!-- Add your time complexity here, e.g. $$O(n)$$ -->
 
-- Space complexity: `O(1)`
+- Space complexity: `O(n+m)`
 <!-- Add your space complexity here, e.g. $$O(n)$$ -->
 
 
