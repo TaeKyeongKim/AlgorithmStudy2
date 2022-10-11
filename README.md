@@ -77,3 +77,44 @@ class Solution {
 ```
   
 </details>
+
+<details>
+  <summary> 2.0 Set Matrix Zeros </summary>
+  
+  > 고민 
+  - 어떤 자료구조를 사용해서 간단히 문제를 풀수있을지 고민.
+  
+  > 해결
+  - 튜플을 이용, 요소가 0인 좌표 (x,y) 를 기록하여 문제 해결
+  
+  > 결과
+  ```swift 
+      func setZeroes(_ matrix: inout [[Int]]) {
+        
+        var pos: [(Int,Int)] = [] //x,y
+        
+        for x in 0..<matrix.count {
+            for y in 0..<matrix[x].count{
+                if matrix[x][y] == 0 {
+                    pos.append((x,y))
+                }
+            }
+        }
+        
+        for item in pos {
+            matrix[item.0] = matrix[item.0].map{$0*0}
+            for row in 0..<matrix.count {
+                matrix[row][item.1] = 0
+            }    
+        }            
+        
+    }
+  ```
+  - Time complexity: `O(n^2)`
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: `O(1)`
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+
+</details>
