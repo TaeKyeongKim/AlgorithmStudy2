@@ -164,4 +164,54 @@ class Solution {
 
   </details>
 
+<details> 
+  <summary> 4.0 Longest Substring Without Repeating Characters </summary>
+  
+ > 고민 
+ - 처음엔 이번에 들어온 string 요소가 이미 array 에 있다면 array 를 다 비우고 새로 시작하는 로직으로 작성하다 `removeSubrange` 를 사용해서 문제를 해결.
+  
+  
+### Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+Iterate through the given string and if there duplicated element found, update array that keep tracks of the current substring. 
+
+
+
+### Approach
+<!-- Describe your approach to solving the problem. -->
+- Keypoint is to slice array by using `removeSubrange` 
+- `array` is used to keep tracks of current substring.
+- `set` is used to store traces of `array` 
+
+![image.png](https://assets.leetcode.com/users/images/9327b146-8f1d-410a-a822-dbb022bf143d_1665562097.4361033.png)
+
+### Complexity
+- Time complexity: `O(n)`
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: `O(n)`
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+### Code
+```swift 
+class Solution {
+    
+   func lengthOfLongestSubstring(_ s: String) -> Int {
+  
+      var set: Set<[String]> = []
+      var curr: [String] = []
+
+      for char in s {
+        if let duplicatedIndex = curr.firstIndex(of: String(char))
+        {
+          curr.removeSubrange(0...duplicatedIndex)
+        }
+        curr.append(String(char))
+        set.insert(curr)
+      }
+      return set.max(by: {$0.count<$1.count})?.count ?? 0
+    }
+}
+```
+</details>
 
