@@ -115,25 +115,24 @@ class Solution {
 
 - Space complexity: `O(n+m)`
 <!-- Add your space complexity here, e.g. $$O(n)$$ -->
-
-
 </details>
 
 
 <details>
     <summary> 3.0 Group Anagrams </summary>
     
-    > 고민 
-    - 어떻게 다른 글자를 가지고 있는지 확인해줄까? 
-    - 어떻게 같은 요소를 포함하고 있는애들끼리만 묶어줄까? 
-    
-    > 해결 
-    - 각 String 에 Sort 를 사용하면 같은 문자를 포함하고 있는 요소와 아닌요소를 나눌수 있었다. 
-    - 그 후 `Dictionary` 의 키값으로 다른 순서로 섞여있는 문자들을 구별하기 위하여 sorted 된 형태의 문자를 key 값으로 두고 value 로 각기 다른 순서로 구성된 문자들을 묶어두기 위해서 `[String]` 을 할당해주었다. 
+   > 고민 
+   - 어떻게 다른 글자를 가지고 있는지 확인해줄까? 
+   - 어떻게 같은 요소를 포함하고 있는애들끼리만 묶어줄까? 
+
+   > 해결 
+   - 각 String 에 Sort 를 사용하면 같은 문자를 포함하고 있는 요소와 아닌요소를 나눌수 있었다. 
+   - 그 후 `Dictionary` 의 키값으로 다른 순서로 섞여있는 문자들을 구별하기 위하여 sorted 된 형태의 문자를 key 값으로 두고 value 로 각기 다른 순서로 구성된 문자들을 묶어두기 위해서 `[String]` 을 할당해주었다. 
     - 주어진 `strs` 를 순회하여 각 딕셔너리를 채워준뒤에 마지막으로 각 value 를 `res` 에 `append` 해줌으로 문제를 해결할수 있었다. 
     
-    > 결과 
-```swift 
+   > 결과 
+  
+  ```swift 
   func groupAnagrams(_ strs: [String]) -> [[String]] {
 
     var commons: [String: [String]] = [:]
@@ -155,13 +154,14 @@ class Solution {
 
     return res
   }
-```
+  ```
+  
   - Time complexity: `O(n)`
 <!-- Add your time complexity here, e.g. $$O(n)$$ -->
 
-- Space complexity: `O(n)`
+  - Space complexity: `O(n)`
 <!-- Add your space complexity here, e.g. $$O(n)$$ -->
 
-</details>
+  </details>
 
 
