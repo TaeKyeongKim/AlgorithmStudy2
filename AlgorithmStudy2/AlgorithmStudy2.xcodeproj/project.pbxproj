@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B748329B28F3DE6F00C8FBC2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B748329A28F3DE6F00C8FBC2 /* main.swift */; };
 		B74832A228F4E45900C8FBC2 /* 3Sum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A128F4E45900C8FBC2 /* 3Sum.swift */; };
+		B74832A428F53CF600C8FBC2 /* SetMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A328F53CF600C8FBC2 /* SetMatrix.swift */; };
+		B74832A628F64F7E00C8FBC2 /* groupAnagrams.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A528F64F7D00C8FBC2 /* groupAnagrams.swift */; };
+		B74832A828F6744B00C8FBC2 /* lengthOfLongestSubstring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +30,9 @@
 		B748329728F3DE6F00C8FBC2 /* AlgorithmStudy2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AlgorithmStudy2; sourceTree = BUILT_PRODUCTS_DIR; };
 		B748329A28F3DE6F00C8FBC2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		B74832A128F4E45900C8FBC2 /* 3Sum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3Sum.swift; sourceTree = "<group>"; };
+		B74832A328F53CF600C8FBC2 /* SetMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMatrix.swift; sourceTree = "<group>"; };
+		B74832A528F64F7D00C8FBC2 /* groupAnagrams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupAnagrams.swift; sourceTree = "<group>"; };
+		B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lengthOfLongestSubstring.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				B748329A28F3DE6F00C8FBC2 /* main.swift */,
+				B74832A528F64F7D00C8FBC2 /* groupAnagrams.swift */,
+				B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */,
+				B74832A328F53CF600C8FBC2 /* SetMatrix.swift */,
 				B74832A128F4E45900C8FBC2 /* 3Sum.swift */,
 			);
 			path = AlgorithmStudy2;
@@ -123,7 +132,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B74832A428F53CF600C8FBC2 /* SetMatrix.swift in Sources */,
+				B74832A628F64F7E00C8FBC2 /* groupAnagrams.swift in Sources */,
 				B748329B28F3DE6F00C8FBC2 /* main.swift in Sources */,
+				B74832A828F6744B00C8FBC2 /* lengthOfLongestSubstring.swift in Sources */,
 				B74832A228F4E45900C8FBC2 /* 3Sum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
