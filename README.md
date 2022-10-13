@@ -215,3 +215,61 @@ class Solution {
 ```
 </details>
 
+<details>
+
+ - 혼자sol? -> ❌
+ <summary> 5.0 Longest Palindromic Substring </summary>
+ 
+ > 고민
+ - palindrome 이면 중복된 요소가 있는 인덱스마다 string 을 slice 해서 palindrome 여부를 판별하면 되겠다는 생각을 했다.
+ - 하지만 아래와 같은 문제가 생겨 해메다 문제를 해결하지 못함.
+ ex) "aacab" 일때, aac 까지 확인후 그다음 요소인 a 가 왔을때 aaca 와 aca 를 비교해야하는데 이방법은 time complexity 를 O(n^3) 가 되므로 패스하지 못함. 
+ 
+ > 해결
+ - 요소하나하나를 검사할때마다, 가운데 요소부터 양끝으로 뻗어가는 pointer (left, right) 를 생성하여 요소가 같은지 확인.
+ - 이때 중요한것은 palindrome 의 길이가 odd, even 일때 를 생각해야한다는것이다. 
+ <img width="835" alt="image" src="https://user-images.githubusercontent.com/36659877/195517073-f1b96583-b957-49a8-8547-6fc12c8662d5.png">
+
+ > 결과 
+ 
+ ```swift 
+ func longestPalindrome(_ s: String) -> String {
+  var left = 0
+  var right = 0
+  var resLen = 0
+  let str = Array(s)
+  var resLeft = 0
+  var resRight = 0
+  
+  for i in 0..<str.count {
+    (left,right) = (i,i)
+    while (left >= 0 && right < str.count) && str[left] == str[right] {
+      if (right - left + 1) > resLen {
+        (resLeft,resRight) = (left,right) // 여기서 res = str[left...right] 를 할당하게되면 On^3 의 시간복잡도가 발생하므로, resLeft, resRight 에 일단 저장해둠.
+        resLen = right - left
+      }
+      right += 1
+      left -= 1
+      
+    }
+    
+    (left,right) = (i,i+1)
+    while (left >= 0 && right < str.count) && str[left] == str[right] {
+      if (right - left + 1) > resLen {
+        (resLeft,resRight) = (left,right)
+        resLen = right - left
+      }
+      right += 1
+      left -= 1
+    }
+  }
+  
+  return String(str[resLeft...resRight])
+}
+```
+
+- Time Complexity = `O(n^2)`
+
+- Space Complexity = `O(1)`
+ 
+</details>
