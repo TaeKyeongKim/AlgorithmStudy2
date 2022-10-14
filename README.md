@@ -273,3 +273,85 @@ class Solution {
 - Space Complexity = `O(1)`
  
 </details>
+
+<details> 
+   <summary> 6.0 Increasing Triplet </summary> 
+   
+   > 고민 
+   - 1부터 시작해서 왼쪽 < 가운데 < 오른쪽 이면 true 를 반환 하는 함수를 작성해봤는데, 3개가 꼭 연속으로 붙어 있어야한다는 제약조건이 없었기때문에 실패했다. 
+   - 따라서 왼쪽, 오른쪽 요소를 검사하는 로직은 그대로 가져가되, lower, high bound 안에 middle 값이 존재해하는 로직을 파기 시작했다. 
+   
+   
+   > 해결 
+   
+   ### 시도1
+   - 1부터 요소 검사를 시작하여 left 값과 right 값이 유효할시 low, high bound 를 업데이트 시켜준다. 
+   - left 와 right 가 현재 curr 값과 같은 값이 아니라면, prevMid 값을 업데이트 해준다. prevMid 는 high bound 가 업데이트 됐을시에, 이전의 middle 값을 넣어주어 유효한 triplet 인지 확인하는 용도때문에 할당해주었다. 
+ 
+ ```swift 
+   func increasingTriplet(_ nums: [Int]) -> Bool {
+        
+        if nums.count < 3 {return false}
+        var low = nums[0]
+        var high = Int.min
+        var prevMid = 0
+
+        for i in 1..<nums.count-1{ 
+            let curr = nums[i]
+            let left = nums[i-1]
+            let right = nums[i+1]
+
+            //Update left
+            if curr > left {
+                low = left
+            }
+
+            //Update right
+            if curr < right {
+                high = right   
+            }
+
+            if ((low < prevMid && high > prevMid) || (low < curr && high > curr)) {
+                return true 
+            }     
+            
+            if curr != right && curr != left {
+                prevMid = curr    
+            }
+
+        }
+
+       return false
+    }
+```  
+- Time Complexity = `O(n)`
+
+- Space Complexity = `O(n)`
+
+  ### 시도2
+  - 1.0 lower, upper 값을 max 로 잡는다. 
+  - 2.0 주어진 배열을 순회 하면서 현재 값이 lower,upper 값 보다 같거나 작을시에 lower 값 upper 값을 순서대로 업데이트 시켜준다. 
+  - 3.0 만약 숫자가 lower 보다 크고, upper 보다 작을시에 true 를 반환 해준다. 
+  - 4.0 모든 요소를 순회 했는데도 불구하고 함수종료가 안되었다는 뜻은, lower, upper Range 사이에 값이 존재하지 않았다는 뜻이므로 false 를 반환해준다. 
+   
+```swift
+   func increasingTriplet(_ nums: [Int]) -> Bool {
+        var lower = Int.max, upper = Int.max
+        for num in nums {
+            if num <= lower {
+                lower = num
+            } else if num <= upper {
+                upper = num
+            } else {
+                return true
+            } 
+        }
+        return false
+    }
+```  
+  
+- Time Complexity = `O(n)`
+
+- Space Complexity = `O(1)`
+
+</details>
