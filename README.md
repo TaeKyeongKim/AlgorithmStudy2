@@ -355,3 +355,70 @@ class Solution {
 - Space Complexity = `O(1)`
 
 </details>
+
+<details> 
+
+   <summary> 7.0 Count and Say </summary>
+    
+   > 고민 
+    
+   - 문제를 보고 이해하지 못해서 힌트를 보고 해결했다. 
+   - 내가 이해한 정도는 이전 수의 각자리수마다 연속으로 중복되는 요소를 카운트 하여 string 값으로 반환하는 작업을 n 번 반복하는 함수를 작성하는 것이였다. 
+
+   > 해결
+    
+   ```swift 
+   func countAndSay(_ n: Int) -> String {
+      var str: String = ""
+      //base case
+      if n == 1 {
+        return "1"
+      }else {
+        str += countAndSay(n-1)
+        let count = counter(str)
+        return stringConverter(count)
+      }
+   }
+
+  func counter(_ str: String) -> [[Int]] {
+    let first = str.index(str.startIndex, offsetBy: 0)
+    var cnt = 1
+    var res: [[Int]] = [[Int(String(str[first]))!,cnt]]
+
+    for i in 0..<str.count-1 {
+      let currIndex = str.index(str.startIndex, offsetBy: i)
+      let nextIndex = str.index(str.startIndex, offsetBy: i+1)
+      let element = String(str[currIndex])
+      let nextElement = String(str[nextIndex])
+
+      if res[res.count-1][0] != Int(nextElement)! {
+        res.append([Int(nextElement)!,1])
+      }
+       if element == nextElement {
+        cnt += 1
+        res[res.count-1][1] = cnt
+      }else{
+        cnt = 1
+      }
+
+    }
+     return res
+  }
+
+  func stringConverter(_ nums: [[Int]]) -> String {
+    var str = ""
+    for num in nums {
+      for element in num.reversed() {
+        str += String(element)
+      }
+    }
+    return str
+  }
+  
+  ```
+  
+  - Time Complexity = `O(n^2)`
+
+  - Space Complexity = `O(n)`
+  
+</details>
