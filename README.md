@@ -422,3 +422,61 @@ class Solution {
   - Space Complexity = `O(n)`
   
 </details>
+
+---- 
+
+## Linked List 
+
+<details> 
+  <summary> 1.0 Add Two Numbers </summary>
+  
+  > 고민 
+  - 어떻게 새로운 노느들 리스트의 마지막 노드에 계속 이어줘야할지 고민 했다. 
+  
+  
+  > 해결
+  - 새로운 ListNode 의 마지막 노드를 tracking 하고 새로운 노드를 이어줄 변수를 만들었다. 
+  - 이변수(`resNext`) 는 `res` listNode 를 참조하고 있고 `resNext = resNext.next` 를 while loop 에서 선언해주어 리스트 맨끝의 노드를 가르킬수 있도록 구현해주었다. 
+  
+  > 결과 
+  
+  ```swift 
+  func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        
+        var carry = 0 
+        var curr1 = l1
+        var curr2 = l2
+        var res: ListNode? = ListNode()
+        var resNext = res
+        
+        while (curr1 != nil || curr2 != nil) { 
+            var sum = (curr1?.val ?? 0) + (curr2?.val ?? 0) + carry
+            carry = sum/10
+            
+            if sum >= 10 { 
+                sum = sum - 10
+            }
+            
+            curr1 = curr1?.next
+            curr2 = curr2?.next 
+            resNext?.next = ListNode(sum)
+            resNext = resNext?.next
+        }
+        
+        if carry == 1 { 
+            resNext?.next = ListNode(carry)
+        }
+            //Trim off the first 0 Listnode
+            res = res?.next
+        
+        return res
+    }
+    
+  ```
+ 
+  - Time Complexity = `O(n)`
+
+  - Space Complexity = `O(n)`
+
+ </details>
+
