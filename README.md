@@ -480,3 +480,79 @@ class Solution {
 
  </details>
 
+ <details> 
+    <summary> 2.0 Odd Even Linked List </summary> 
+    
+   > 고민 
+   - 홀수번째 있는 노드와 짝수번째 있는 노드를 어떻게 분리시킬지 고민 했다. 
+    
+   > 해결 
+   - 이전번 문제와 똑같은 방법으로, 홀수, 짝수 번째 노드를 저장시킬 변수를 만들어서 리스트 끝에 이어주는 형식으로 문제 해결 
+    
+  ```swift 
+    func oddEvenList(_ head: ListNode?) -> ListNode? {
+      // var res = head
+
+      var oddList: ListNode? = ListNode()
+      var oddNext = oddList
+
+      var evenList: ListNode? = ListNode()
+      var evenNext = evenList
+
+      var curr = head
+      var cnt = 1
+
+      while curr != nil {
+
+        if cnt % 2 == 1 {
+          oddNext?.next = curr
+          oddNext = oddNext?.next
+        } else {
+          //evenCase
+          evenNext?.next = curr
+          evenNext = evenNext?.next
+        }
+        curr = curr?.next
+        cnt += 1
+      }
+
+      if evenNext?.next?.next == nil {
+        evenNext?.next = nil
+      }
+
+      oddList = oddList?.next
+      evenList = evenList?.next
+      oddNext?.next = evenList
+
+      return oddList
+    }
+  ```
+  
+  ```swift 
+  //더 간단히 푸는 방법 
+     func oddEvenList(_ head: ListNode?) -> ListNode? {
+        var odd = head
+        var even = odd?.next
+        
+        var evenHead = even
+        var oddHead = odd
+        
+        while even?.next != nil {
+            odd?.next = even?.next
+            odd = odd?.next
+            
+            even?.next = odd?.next
+            even = even?.next
+        }
+        
+        odd?.next = evenHead
+        
+        return oddHead
+    }
+  ```
+    
+  - Time Complexity = `O(n)`
+  
+  - Space Complexity = `O(1)`
+    
+ </details>
