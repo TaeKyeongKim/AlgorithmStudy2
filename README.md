@@ -556,3 +556,42 @@ class Solution {
   - Space Complexity = `O(1)`
     
  </details>
+
+
+ <details> 
+    <summary> 3.0 Intersection of Two Linked Lists </summary>
+   
+  - 혼자sol? -> ❌
+   
+  > 고민 
+  - 각각 길이가 다른 리스트의 중 Intersect 하는 노드를 어떻게 찾을지 고민함. 
+  - 리스트를 reverse 해서 풀어보려했으나 기존리스트의 순서를 바꾸면 안되므로 pass.
+   
+  > 해결
+  - 각각 리스트의 길이를 세어 길이의 차만큼 offset 을 주어서 list 를 순회하는 방법으로 문제를 해결해도 되지만, count 하는과정의 시간이 오래걸림.
+  - 각각의 리스트를 순회할때 nil 값이 오면, 다른 리스트의 첫부분으로 가서 문제를 해결하는 방법이 있었다. 
+  - 이렇게하면 둘의 리스트를 순회하면 길이의 상관없이 각각 검사되는 요소의 순서가 일치해 지므로 문제 해결!. 
+  
+  > 결과 
+  
+  ```swift
+  func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
+        
+        var head1 = headA
+        var head2 = headB
+        
+        while head1 !== head2 {
+            head1 = head1 == nil ? headB : head1?.next
+            head2 = head2 == nil ? headA : head2?.next
+        }
+
+        return head1
+    }
+  ```
+  
+  - Time Complexity = `O(n+m)`
+  
+  - Space Complexity = `O(1)`
+    
+  
+ </details>
