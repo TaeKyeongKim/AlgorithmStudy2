@@ -596,3 +596,56 @@ class Solution {
     
   
  </details>
+ 
+ ----
+ 
+ ## Trees and Graphs
+ 
+ <details>
+     <summary> 1.0 Binary Tree Inorder Traversal </summary>
+     
+   > 고민 
+   - Binary Tree 를 Inorder Traversal 하는 방법을 한번도 풀어보지 못해서 처음에 개념을 좀 찾아보고 코드로 구현하려고 했다. 
+   - Inorder Traversal 은 Tree 를 검색하는 하나의 DFS 방법으로 왼쪽 가장 깊은 노드에서부터 오른쪽 방향으로 진행되는 방법이다. 
+   - 처음 개념을 파악하고 나서 왼쪽 노드로 뻗어가는과정중에 오른쪽 노드가 있는지 파악 해야하나? 라는 고민을 했었지만 결과적으로는 아니였다. (여기서 시간을 엄청 잡아먹음) 
+   - 한 2시간넘게 잘못된생각으로 문제를 풀려고 했었는데 솔직히 문제를 풀면서도 확신이 들지 않았었다. 다음부터는 시간이 꽤 지나는데도 내생각에 확신이 들지 않는다면 가능한 빨리  문제를 어떻게 접근해야하는지 다시 살펴볼 필요가 있다고 생각한다. 
+     
+   > 해결 
+   - 0.0 pointer 를 root 로 향하게 한다.
+   - 1.0 pointer 의 왼쪽 Child node 가 nil 이 될때 까지 쭉 pointer 를 이동시키며 Stack 에 저장한다. 
+   - 2.0 Stack 제일 위에 있는 node 를 pop 해주고 res 에 append 한다. 
+   - 3.0 pointer 를 pop 된 node 의 오른쪽 요소로 향하게 하고 1.0,2.0 을 되풀이 한다. 
+   - 4.0 이 과정을 Pointer 가 nil, stack 이 empty 가 될때까지 반복한다. 
+     
+  <img width="1599" alt="image" src="https://user-images.githubusercontent.com/36659877/196602000-89c2e9cb-ac36-42dd-a045-1c4430483fd2.png">
+    
+   ```swift 
+   func inorderTraversal(_ root: TreeNode?) -> [Int] {
+    var res: [Int] = []
+    var pointer = root
+    var stack: [TreeNode] = []
+    
+    //Pointer 가 nil, stack 이 empty 가 될때까지
+    while pointer != nil || !stack.isEmpty {
+      
+      //LeftNode Traversal 
+      while pointer != nil {
+         stack.append(pointer!) 
+         pointer = pointer?.next
+      }
+      
+      let lastNode = stack.removeLast() 
+      res.append(lastNode.val) 
+      pointer = lastNode.right
+    }
+    return res
+   }
+   ```
+      
+ - Time Complexity = `O(n)`
+  
+ - Space Complexity = `O(n)` 
+ </details>
+ 
+ 
+ 
