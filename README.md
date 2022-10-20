@@ -648,4 +648,86 @@ class Solution {
  </details>
  
  
- 
+ <details> 
+   <summary> 2.0 Binary Tree Zigzag Level Order Traversal </summary> 
+    
+   > 고민 
+   - 어떻게 하나의 level 씩 노드를 검색할수 있을까? 
+   - 어떻게 방향을 제어 할수 있을까? 
+    
+   > 해결 
+   - BFS(하나의 level 씩 검색하는 방법) 를 사용해서 문제를 해결하는 방법을 저번에 한번 구현한적이 있었는데 생각이 잘 나지 않아서 다시 보고 익히는 연습을 했다. 
+   - 각 level 이 읽어지는 방향이 달라지면서 노드값 또한 결과 배열에 정리 시켜놔야하는데 이부분에서 많이 고민 했다. Stack 과 Queue 를 같이 사용할지, 아니면 다른 방법이 있을지 생각 고민했다. 
+   - 그 결과 루트 에서부터 오른쪽 에서 왼쪽 방향으로 읽는다고 생각하여 읽는 방향이 왼쪽에서 오른쪽 일경우 Queue 에 들어 있던 요소들을 배열에 넣은다음 reversed 해주어 문제를 해결했다.
+       
+   ![image](https://user-images.githubusercontent.com/36659877/196968613-c284d1bd-0a99-4bb1-96d9-14ba2de26e19.png)
+
+   ![image](https://user-images.githubusercontent.com/36659877/196968663-162d864f-6479-47d5-bff6-437f8df56318.png)
+     
+   > 결과 
+   ```swift 
+   class Queue { 
+    
+    private var queue: [TreeNode?] = []
+    private var head: Int = 0
+
+    var count: Int {
+      return queue.count - head 
+    } 
+
+    var isEmpty: Bool { 
+      return self.count == 0 
+    }
+
+    func enqueue(_ val: TreeNode?) {
+        guard let newNode = val else {return}
+        queue.append(newNode)
+    }
+
+    func dequeue() -> TreeNode? { 
+        guard head < queue.count, let node = queue[head] else {return nil}
+        queue[head] = nil
+        head += 1
+        return node
+    } 
+
+   }
+    
+   func zigzagLevelOrder(_ root: TreeNode?) -> [[Int]] {
+
+      var queue = Queue() 
+      var res: [[Int]] = []
+      var curr = root
+      var leftToRight = false 
+      queue.enqueue(curr)
+        
+      while (!queue.isEmpty) {
+          var level: [Int] = [] 
+          var count = queue.count - 1 
+
+          while (count >= 0) { 
+              if let node = queue.dequeue() {
+                   level.append(node.val)
+                   count -= 1
+                   queue.enqueue(node.left)    
+                   queue.enqueue(node.right)
+              }
+                
+          }
+       
+          if leftToRight {
+                level = level.reversed()
+          }
+            
+          leftToRight = !leftToRight
+          res.append(level)
+      }
+
+      return res
+   }
+   ```
+    
+   - Time Complexity = `O(n+E)` where E = Number of nodes per level
+    
+   - Space Complexity = `O(n+E)` 
+ </details> 
