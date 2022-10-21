@@ -731,3 +731,10 @@ class Solution {
     
    - Space Complexity = `O(n+E)` 
  </details> 
+
+ <details> 
+   <summary> 3.0 Construct Binary Tree from Preorder and Inorder Traversal </summary> 
+ 
+ 
+ 
+ </details>
