@@ -734,7 +734,40 @@ class Solution {
 
  <details> 
    <summary> 3.0 Construct Binary Tree from Preorder and Inorder Traversal </summary> 
+   
+   > 고민 
+   - preorder 와 inorder 리스트를 만들때 사용되었던 Binary Tree 를 생성하야하는데, 어떻게 preorder 와 inorder 리스트 들이 만들어지는지 알아봐야겠다. 
+
+### Preorder (전위 순회) 방식 
+
+![image](https://user-images.githubusercontent.com/36659877/197224781-95b32994-592d-48f4-88fb-3c416128e35f.png)
+   
+ - 순회 순서 => Root, Left, Right
+ -> F > B > A > D > C > E > G > I > H 
+
+### Preorder (전위 순회) 방식 
+
+ ![image](https://user-images.githubusercontent.com/36659877/197229986-4f49811c-90cb-45ed-8d71-dcf4584b630b.png)
+
+ - 순회 순서 => Left, Root, Right
+ -> A > B > C > D > E > F > G > H > I
  
+ - 두 방식의 공통점은 subTree 하나의 끝이 나올때까지 순회를 계속 하는 DFS 방식이다. 
+ - 두방식의 다른점은 처음 2개의 요소를 탐색하는 순서인데, root/left 를 먼저 탐색하냐에 있다. 
+ - 정확히 어떤 패턴을 사용해서 문제를 해결해야할지 몰라서 두개의 배열을 나열해보고 하나씩 요소를 제거 해봤고, 아래와 같은 생각을 이끌어 낼수 있었다. 
+
+ 
+  > - Preorder 배열의 첫 요소는 Binary Tree 의 시작점의 값을 알려주기 때문에, preorder 배열의 요소를 하나씩 BinaryTree Node 로 생성한다음, 어떤 순서로 연결해줄지를 inorder 배열을 통해서 유출해냈다. 
+  > - 또한 첫번째 요소를 기준으로 왼쪽 요소들은 Left SubTree 인것을 알수 있고, 오른쪽 요소들은 Right SubTree 인것을 유출해 낼수 있었다. 
+  > 그리고 아래와 같은 방식으로 Binary Tree 를 완성해갔다. 
+  
+![image](https://user-images.githubusercontent.com/36659877/197249222-174d8fc4-b1ec-4ca7-9bf2-0f96634d9c38.png)
+![image](https://user-images.githubusercontent.com/36659877/197250061-8a919182-59da-42ba-9d3d-65ee5f283635.png)
+![image](https://user-images.githubusercontent.com/36659877/197250089-32646a4a-6651-4967-8794-09022034f90a.png)
+
+
+> 해결
+
  
  
  </details>
