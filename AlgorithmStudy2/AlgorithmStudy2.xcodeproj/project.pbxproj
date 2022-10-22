@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7008FE628FA3DA50072542C /* CountandSay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7008FE528FA3DA50072542C /* CountandSay.swift */; };
+		B7008FFC28FCE5A40072542C /* OddEvenLinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7008FFB28FCE5A40072542C /* OddEvenLinkedList.swift */; };
 		B748329B28F3DE6F00C8FBC2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = B748329A28F3DE6F00C8FBC2 /* main.swift */; };
 		B74832A228F4E45900C8FBC2 /* 3Sum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A128F4E45900C8FBC2 /* 3Sum.swift */; };
 		B74832A428F53CF600C8FBC2 /* SetMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A328F53CF600C8FBC2 /* SetMatrix.swift */; };
 		B74832A628F64F7E00C8FBC2 /* groupAnagrams.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A528F64F7D00C8FBC2 /* groupAnagrams.swift */; };
 		B74832A828F6744B00C8FBC2 /* lengthOfLongestSubstring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */; };
+		B74832AC28F7995800C8FBC2 /* longestPalindrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832AB28F7995800C8FBC2 /* longestPalindrome.swift */; };
+		B748B0782904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift in Sources */ = {isa = PBXBuildFile; fileRef = B748B0772904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,12 +31,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B7008FE528FA3DA50072542C /* CountandSay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountandSay.swift; sourceTree = "<group>"; };
+		B7008FFB28FCE5A40072542C /* OddEvenLinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddEvenLinkedList.swift; sourceTree = "<group>"; };
 		B748329728F3DE6F00C8FBC2 /* AlgorithmStudy2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AlgorithmStudy2; sourceTree = BUILT_PRODUCTS_DIR; };
 		B748329A28F3DE6F00C8FBC2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		B74832A128F4E45900C8FBC2 /* 3Sum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3Sum.swift; sourceTree = "<group>"; };
 		B74832A328F53CF600C8FBC2 /* SetMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMatrix.swift; sourceTree = "<group>"; };
 		B74832A528F64F7D00C8FBC2 /* groupAnagrams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupAnagrams.swift; sourceTree = "<group>"; };
 		B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lengthOfLongestSubstring.swift; sourceTree = "<group>"; };
+		B74832AB28F7995800C8FBC2 /* longestPalindrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longestPalindrome.swift; sourceTree = "<group>"; };
+		B748B0772904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Construct Binary Tree from Preorder and Inorder Traversal  .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,10 @@
 				B748329A28F3DE6F00C8FBC2 /* main.swift */,
 				B74832A528F64F7D00C8FBC2 /* groupAnagrams.swift */,
 				B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */,
+				B74832AB28F7995800C8FBC2 /* longestPalindrome.swift */,
+				B748B0772904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift */,
+				B7008FE528FA3DA50072542C /* CountandSay.swift */,
+				B7008FFB28FCE5A40072542C /* OddEvenLinkedList.swift */,
 				B74832A328F53CF600C8FBC2 /* SetMatrix.swift */,
 				B74832A128F4E45900C8FBC2 /* 3Sum.swift */,
 			);
@@ -132,7 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7008FE628FA3DA50072542C /* CountandSay.swift in Sources */,
 				B74832A428F53CF600C8FBC2 /* SetMatrix.swift in Sources */,
+				B7008FFC28FCE5A40072542C /* OddEvenLinkedList.swift in Sources */,
+				B748B0782904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift in Sources */,
+				B74832AC28F7995800C8FBC2 /* longestPalindrome.swift in Sources */,
 				B74832A628F64F7E00C8FBC2 /* groupAnagrams.swift in Sources */,
 				B748329B28F3DE6F00C8FBC2 /* main.swift in Sources */,
 				B74832A828F6744B00C8FBC2 /* lengthOfLongestSubstring.swift in Sources */,
