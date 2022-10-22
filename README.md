@@ -767,7 +767,22 @@ class Solution {
 
 
 > 해결
+- 위에서 고민했던방법을 구현하는데에 있어서 어려움을 겪었다. 결국 혼자서 문제를 해결 하지는 못했고, Recursive 하게 문제를 해결하는 방법을 참조 하여 해결 하였다. 
 
- 
- 
+```swift 
+func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+    //baseCase
+    guard let firstValue = preorder.first else {return nil}
+    let root = TreeNode(firstValue)
+    let midIndex = inorder.firstIndex(of:firstValue)!
+    root.left = buildTree(Array(preorder[1..<(midIndex+1)]), Array(inorder[0..<midIndex]))
+    root.right = buildTree(Array(preorder[(midIndex+1)...]), Array(inorder[(midIndex+1)...]))
+  return root
+}
+```
+
+- Time Complexity = `O(n)`
+    
+- Space Complexity = `O(n)` 
+
  </details>
