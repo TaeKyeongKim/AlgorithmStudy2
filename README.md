@@ -786,3 +786,83 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
 - Space Complexity = `O(n)` 
 
  </details>
+
+<details>
+  <summary> 4.0 Populating Next Right Pointers in Each Node </summary>
+  
+  > 고민 
+  - 문제를 보고 각 레벨을 순회하면서 문제를 해결할수 있겠다고 생각함. 
+  
+  > 해결
+  - 큐를 사용해서 BFS 를 구현하여 문제를 해결했다. 
+  
+  > 결과 
+  
+  ```swift
+  class Queue {
+    
+    private var queue:[Node?] = [] 
+    private var head = 0 
+    
+    subscript(index: Int) -> Node? {
+        return queue[index]
+    }
+    
+    var first: Node?{
+      return queue[head]  
+    } 
+    
+    var count: Int {
+      return queue.count - head  
+    } 
+    
+    var isEmpty: Bool {
+        return self.count == 0
+    }
+    
+    func enqueue(_ node: Node?) {
+        queue.append(node)
+    }
+    
+    func dequeue() -> Node? { 
+        guard head < queue.count, let node = queue[head] else {return nil}
+        queue[head] = nil
+        head += 1
+        return node
+    }
+    
+  }
+                                 
+  func connect(_ root: Node?) -> Node? {
+        guard let root = root else {return nil}
+        var queue = Queue()
+        queue.enqueue(root)
+        
+        while !queue.isEmpty {
+            
+            var cnt = queue.count-1
+            while cnt >= 0 {
+
+                let node = queue.dequeue()
+                if cnt == 0 {
+                    node?.next = nil
+                }else{
+                    node?.next = queue.first
+                }
+                if let left = node?.left {queue.enqueue(left)}
+                if let right = node?.right {queue.enqueue(right)}
+                cnt -= 1
+            }
+
+        }
+        
+        return root
+    }
+  ```
+  
+ - Time Complexity = `O(n)`
+    
+ - Space Complexity = `O(1)` 
+  
+</details>
+   
