@@ -866,3 +866,44 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
   
 </details>
    
+<details>
+  <summary> 5.0 Kth Smallest Element in a BST </summary>
+  
+  > 고민 
+  - 트리에 주어진 값들을 어떻게 하면 sort 할수 있을까?
+  
+  > 해결 
+  - BST 를 inorder 방식으로 순회하며 각각의 값을 배열에 넣어주면 ascending order 로 배열이 나열될것이다. 
+  
+  > 결과 
+  
+  ```swift 
+  func kthSmallest(_ root: TreeNode?, _ k: Int) -> Int {
+        
+        var stack:[TreeNode?] = []
+        var pointer = root 
+        var sortedValueList: [Int] = []
+        
+        while pointer != nil || !stack.isEmpty {
+            
+            //Traverse To deapest leftNode
+            while pointer != nil {
+                stack.append(pointer)
+                pointer = pointer?.left
+            }
+            
+            //PopStacks 
+            if let node = stack.popLast() {
+                sortedValueList.append(node!.val)
+                pointer = node?.right 
+            }
+        }
+        
+        return sortedValueList[k-1]
+    }
+  ```
+  - Time Complexity = `O(n)`
+    
+  - Space Complexity = `O(1)`
+
+</details>
