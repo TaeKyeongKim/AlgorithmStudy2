@@ -16,6 +16,7 @@
 		B74832A828F6744B00C8FBC2 /* lengthOfLongestSubstring.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */; };
 		B74832AC28F7995800C8FBC2 /* longestPalindrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74832AB28F7995800C8FBC2 /* longestPalindrome.swift */; };
 		B748B0782904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift in Sources */ = {isa = PBXBuildFile; fileRef = B748B0772904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift */; };
+		B748B07A2904D9B600199DED /*  Kth Smallest Element in a BST  .swift in Sources */ = {isa = PBXBuildFile; fileRef = B748B0792904D9B600199DED /*  Kth Smallest Element in a BST  .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lengthOfLongestSubstring.swift; sourceTree = "<group>"; };
 		B74832AB28F7995800C8FBC2 /* longestPalindrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longestPalindrome.swift; sourceTree = "<group>"; };
 		B748B0772904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Construct Binary Tree from Preorder and Inorder Traversal  .swift"; sourceTree = "<group>"; };
+		B748B0792904D9B600199DED /*  Kth Smallest Element in a BST  .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " Kth Smallest Element in a BST  .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				B74832A728F6744B00C8FBC2 /* lengthOfLongestSubstring.swift */,
 				B74832AB28F7995800C8FBC2 /* longestPalindrome.swift */,
 				B748B0772904163300199DED /* Construct Binary Tree from Preorder and Inorder Traversal  .swift */,
+				B748B0792904D9B600199DED /*  Kth Smallest Element in a BST  .swift */,
 				B7008FE528FA3DA50072542C /* CountandSay.swift */,
 				B7008FFB28FCE5A40072542C /* OddEvenLinkedList.swift */,
 				B74832A328F53CF600C8FBC2 /* SetMatrix.swift */,
@@ -151,6 +154,7 @@
 				B74832AC28F7995800C8FBC2 /* longestPalindrome.swift in Sources */,
 				B74832A628F64F7E00C8FBC2 /* groupAnagrams.swift in Sources */,
 				B748329B28F3DE6F00C8FBC2 /* main.swift in Sources */,
+				B748B07A2904D9B600199DED /*  Kth Smallest Element in a BST  .swift in Sources */,
 				B74832A828F6744B00C8FBC2 /* lengthOfLongestSubstring.swift in Sources */,
 				B74832A228F4E45900C8FBC2 /* 3Sum.swift in Sources */,
 			);
