@@ -907,3 +907,73 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
   - Space Complexity = `O(1)`
 
 </details>
+
+<details> 
+  <summary> 6.0 Number of Islands </summary>
+  
+  > 고민 
+  - 직관적으로 생각했을때는 문제를 아래와 같이 해결할수 있을것같다고 생각했다. 
+  
+  ![image](https://user-images.githubusercontent.com/36659877/197436086-53feac5c-f6ee-4727-b4c2-7884a270fe0f.png)
+
+  - 왼쪽 위 부터 시작해서 1 과 연결되어 있는 1 들의 묶음으로 island 만들고, 만들어진 island 의 가장 오른쪽 위의 index 부터 시작하여 1 이 나올때까지 배열을 순회하는것이다. 
+  - 이때 0 이 아니 1을 만났을때 또 다른 island 의 묶음을 만드는 것이다. 
+  - 하지만 이를 구현하는 방법에서 막혔는데 2가지 문제가 있었다. 
+  - 1.0 어떻게 현재 1과 연결되어 있는 모든 1을 찾지? 
+  - 2.0 어떻게 이미 방문한 요소를 표시할수 있을까? 
+  
+  > 해결 
+  - 1과 연결되어 있는 오른쪽,아래 방향을 검사해서 1인경우 연속해서 연결되어 있는 1을 찾을수 있다. (하나의 완성된 섬을 찾기 위해서)
+  - 여기서 중요한점은 연결되어 있는 1이 방문이 됐다는것을 표기해야한다. 
+  - 첫번째 1과 연결된 좌표는 (0,1), (1,0) 이다. 
+  - (0,1)과 (1,0) 에 연결되어 있는 1의 좌표는 (0,2),(1,1),(2,0) 인데 (1,1) 이 중복된것을 확인할수있고 두번 확인 할필요가 없어진다. 
+  - 이렇게 중복된 요소의 방문을 피할수 있는 방법은 BFS 방법을 이용해서 1이 있는곳을 체크하는것이다. 
+  ![image](https://user-images.githubusercontent.com/36659877/197437731-4129553a-496c-42f5-a311-fe2ade27a5a6.png)
+  
+  
+  > 결과 
+  - 실질적인 구현은 Recursive 하게 풀었다. 
+  - 일단 주어진 grid 를 순회하면서 1 을 찾으면, 해당 맵에 1이 연속으로 연결되어 있는 1을 -> 0 으로 만들어준다. (위,아래,오른쪽,왼쪽 방향으로)
+  - 변경된 맵을 계속 순회하게 되면 첫번째 1과 연결이 안되어 있던 또다른 1을 찾을수 있게되는데 이때 islandCount 를  +1 해준다. 
+  
+  ![image](https://user-images.githubusercontent.com/36659877/197448179-2f648d71-7611-4f7f-9281-c6848b25cf0a.png)
+
+  ```swift 
+  func numIslands(_ grid: [[Character]]) -> Int {
+      
+      let row = grid.count
+      let col = grid[0].count
+      var islandCount = 0
+      var map = grid
+
+      for r in 0..<row {
+          for c in 0..<col{
+              if map[r][c] == "1" { //배열순회중, 1을 찾으면, r,c 를 reference Point 로 사용하여 연결되어 있는 1 들을 0 으로 만들어준다
+                  islandCount += 1
+                  changeElement(r,c,&map)
+              }
+          }
+      }
+      return islandCount
+  }
+
+
+
+  func changeElement(_ r:Int, _ c:Int, _ map: inout [[Character]]) { //To find area of island from the reference point
+
+    guard r >= 0, r < map.count,
+          c >= 0, c < map[0].count,
+          map[r][c] == "1" else {return}
+    map[r][c] = "0"
+    changeElement(r+1, c, &map) //Search bottom and change to 0
+    changeElement(r-1, c, &map) //top
+    changeElement(r, c+1, &map) //right
+    changeElement(r, c-1, &map) //left
+  }
+  ```
+
+  - Time Complexity = `O(n^2)`
+    
+  - Space Complexity = `O(n+m)`
+
+</details>
