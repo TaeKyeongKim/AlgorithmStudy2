@@ -977,3 +977,64 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
   - Space Complexity = `O(n+m)`
 
 </details>
+
+---- 
+## Back Tracking
+<details> 
+  <summary> 1.0 Letter Combinations of a Phone Number </summary>  
+  
+  > 고민 
+  - 어떻게 하나의 숫자로 만들수 있는 알파벳을 빼고 다른 숫자로 만들수 있는 알파벳과 조합을 이룰수 있을까?
+  
+  > 해결 
+  - BackTracking Tree 를 그려보면 아래와 같이 만들수 있다.   
+  ![image](https://user-images.githubusercontent.com/36659877/197676152-2035e3ed-6b06-44b1-b01a-a7a5e18d5a2c.png)
+  - 2의 a 로 시작했을때 3의 def 과 조합하여 string 배열을 만들어 주어야하는데, 아래와 같은 방식으로 문제를 해결했다. 
+  - 함수의 인풋으로 주어진 digits 를 index 로 관리해서 2와 3이 가지고 잇는 단어를 빼낼수있다. 
+  - 첫번째로 2 의 (index = 0) 모든 character 를 순회하며 recursive 한 함수를 호출한다. 
+  - 이 recursive 에 (index + 1) 을 넣어주어 3 이 가지고 있는 단어들을 순회 하며 이전에 넘어온 character (a,b,c 순) 과 현재 characters (d,e,f 순) 을 합쳐 recursive 함수 호출을 basecase 에 도달할때 까지 반복한다. 
+  - 이때 basecase 는 현재 합쳐친 string 의 개수가 함수 인풋으로 주어진 digits 의 개수와 같은것이다. 
+  
+  > 결과 
+  ```swift 
+  func letterCombinations(_ digits: String) -> [String] {
+    let letterList: [String: String] = ["2":"abc",
+                                        "3":"def",
+                                        "4":"ghi",
+                                        "5":"jkl",
+                                        "6":"nmo",
+                                        "7":"pqrs",
+                                        "8":"tuv",
+                                        "9":"wxyz"]
+    var res: [String] = []
+
+
+      func backTracking(_ index: Int, _ currStr:String) {
+
+        //basecase 
+        if currStr.count == digits.count { 
+          res.append(currStr)
+          return
+        }
+
+        let strIndex = digits.index(digits.startIndex, offsetBy: index)
+        for char in letterList[digits[strIndex]] {
+            backTrack(index+1, currStr+String(char))  
+        }
+
+      } 
+
+    if !digits.isEmpty {
+      backTrack(0,"")
+    }
+
+    return res 
+  } 
+  
+  ```
+  
+  - Time Complexity = `O(n*4^n)` (worstCase)
+    
+  - Space Complexity = `O(n)`
+  
+</details>
