@@ -1038,3 +1038,76 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
   - Space Complexity = `O(n)`
   
 </details>
+
+<details> 
+  <summary> 2.0 Generate Parenthesis </summary> 
+  
+  > 고민 
+  - 문제를 아예 어떻게 접근해야할지 조차 생각이 안난다. 
+  - 계속 풀어보는 수밖에 없을듯.. 
+  
+  > 해결 
+  
+  ### 문제 파악
+  - 3이 주어질때 well formed parenthesis 는 ["((()))","(()())","(())()","()(())","()()()"] 와 같다. 
+  - Well Formed parenthesis 의 `Key Point` 는 "(" 이전에 ")" 가 올수 없는 형식이다. `)(` 와 같은 형식 불가 
+  - n * 2 만큼의 parenthesis 가 존재하고 "(" 와 ")" 가 각각 반반 을 차지한다. 
+  
+  ### 문제 접근 
+  - 어떻게 문제를 풀수 있을까? 
+  - Brute force 방법으로 접근 해보자. 
+    - Valid 한 parenthesis 는 어떠한 케이스인가? 
+    - n = 3 일때, 3개의 opened, 3개의 closed 괄호를 가지고 있어야한다 (base case)
+    - 이들의 순서는 opened parenthesis > closed parenthesis 일때만 closed 괄호를 더할수 있다. 
+    - 열린 괄호는 limit, 즉 n 개의 열린괄호 까지 더해 줄수 있다. 
+    - 이런 제약사항으로 백트래킹트리 를 만든다면 아래와같은 트리를 만들수있다. 
+    
+![image](https://user-images.githubusercontent.com/36659877/197924954-cce0a060-a348-4ba9-ba49-6e6390796c26.png)
+
+  - 이 과정을 recursive 하게 코드로 구현해보자 
+  
+  ### 코드 구현 
+  - base case 는 현재 str.count 가 n*2 일때로 구성하였다. 
+  - 아래와같은 2가지의 case 로 recursive 하게 backtracking 함수를 불러줄수있다.  
+  - 1.0 `(` 의 개수가 n 개 미만일떄 
+  - 2.0 `)` 의 개수가 `(` 의 개수보다 작을때.
+
+  > 결과 
+  
+  ```swift 
+    func generateParenthesis(_ n: Int) -> [String] {
+
+    let list: [Bool:String] = [true:"(", false:")"]
+    var res:[String] = []
+
+        func backTrack(_ openCnt: Int, _ closeCnt: Int, _ currStr: String) {
+          //basecase
+          if currStr.count == n*2 {
+            res.append(currStr)
+            return
+          }
+
+          //Add open parenthesis when it does not exceeds the limit
+          if openCnt < n {
+            backTrack(openCnt+1, closeCnt, currStr + (list[true]!))
+          }
+
+          //Call recursivly on the case below at the same time.
+
+          //Add closed parenthesis if the count of closed parenthesis is less then opened ones.
+          if closeCnt < openCnt {
+            backTrack(openCnt, closeCnt+1, currStr + (list[false]!))
+          }
+
+        }
+
+      backTrack(0,0,"")
+
+      return res
+    }
+  ```  
+  - Time Complexity = `O(8^n)` (worst case 잘모르겠음..)
+    
+  - Space Complexity = `O(n)`
+
+</details> 
