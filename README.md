@@ -1111,3 +1111,101 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
   - Space Complexity = `O(n)`
 
 </details> 
+
+
+<details> 
+  <summary> 3.0 Permutations </summary> 
+
+  > 고민 
+  - 어떻게 4자리 이상의 수가 주어질때 permutation 을 구할수 있을까? 
+  - 일단 3자리 이하의 수가 주어질때는 어떻게 문제를 풀어야해야하는지 알아냈다. 
+  - Ex) [1,2,3] 이 주어질 경우, 
+    - [1,2,3] -> [1,3,2] 
+    - [2,1,3] -> [2,3,1] 
+    - [3,2,1] -> [3,1,2] 
+    
+    위와 같은 순으로 [1,2,3] 의 첫번째 요소의 순서을 번갈아가며 3개의 reference 배열을 만들었고, 하나의 배열마다 그 내부 요소의 순서를 index 로 지정하여 1부터 2 까지 순서를 바꿔주었다. 
+  - 문제는 [1,2,3,4] 와 같이 4개 이상의 요소가 포함된 배열일 경우이다. 
+    - 현재 내가 생각해낸 알고리즘은 내부의 요소 인덱스가 0부터 항상 증가하기 때문에 [1,2,3,4] 일경우 [1,3,2,4] -> [1,3,4,2] 까지 밖에 계산을 하지 못한다. 
+    - 인덱스가 계속 증가기만 하다보니 [1,2,4,3], [1,4,2,3], [1,4,3,2] 같은 요소들이 빠진다는 이야기다. 
+    
+    현재 내가 작성 한 코드는 아래와 같고 어떻게 위 문제를 해결할수 있을지 찾아보자. 
+    ```swift 
+    func permute(_ nums: [Int]) -> [[Int]] {
+  
+      var res: [[Int]] = []
+
+      func backTrack(_ startIndex: Int, curr: [Int]) {
+
+        res.append(curr)
+        if startIndex >= nums.count-1 {
+          return
+        }
+        var newCurr = curr
+        newCurr.swapAt(startIndex, startIndex+1)
+        backTrack(startIndex+1, curr: newCurr)
+
+      }
+
+      for i in 0..<nums.count {
+        var curr = nums
+        curr.swapAt(i, 0)
+        backTrack(1,curr: curr)
+      }
+
+
+      return res
+    }
+    ```
+    
+ > 해결
+ - 주어진 배열[1,2,3] 에 대해서 나는 만들수 있는 조합의 reference? 를 아래와 같이 만들었었는데. 
+ 
+    > 내가 생각했던 방식
+    > [1,2,3] -> [1,3,2] 
+    
+    > [2,1,3] -> [2,3,1] 
+    
+    > [3,2,1] -> [3,1,2] 
+    
+    > 정답 방식
+    - 정답을 본뒤에 사람들은 요소 하나하나 씩 선택하면 그 다음 것에서 무었을 선택할수 있나? 라는 로직으로 트리를 아래와 같이 만들었다. 
+    - 동그라미 안에 들어 있는 요소들의 순서 하나하나가 permuation 이 되는 방식이다. 
+![image](https://user-images.githubusercontent.com/36659877/198196919-1c5e1e5e-c864-4924-a6ec-9638a00e5450.png)
+
+
+    > 구현 방식
+    ![image](https://user-images.githubusercontent.com/36659877/198197967-ef633b85-a7de-44ea-ba93-9c8b3e531c77.png)
+    ![image](https://user-images.githubusercontent.com/36659877/198204334-ea37ae54-3b4a-4511-83bf-6926b1c758ac.png)
+
+  > 결과 
+  ```swift 
+    func permute(_ nums: [Int]) -> [[Int]] {
+
+      var res: [[Int]] = []
+      //basecase
+      if nums.count == 1 {return [nums]}
+
+      var copy = nums
+
+      for _ in 0..<copy.count { //주어진 배열의 크기만큼 반복
+        let firstVal = copy.remove(at: 0) //맨 앞에 있는 값을 빼주고
+        var perms = permute(copy)//1개의 요소가 남을때 까지 계속 진행 (Basecase)
+
+        for i in 0..<perms.count {
+          perms[i].append(firstVal)
+        }
+
+        res += perms
+        copy.append(firstVal)
+      }
+       return res
+    }
+  ```
+
+  - Time Complexity = `O()` 
+    
+  - Space Complexity = `O(n)`
+
+
+</details>
