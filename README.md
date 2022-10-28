@@ -1207,5 +1207,78 @@ func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
     
   - Space Complexity = `O(n)`
 
+</details>
+
+<details> 
+  <summary> 4.0 Subsets </summary> 
+  
+> 고민
+- 문제의 패턴이 위 3문제와 많이 흡사한것을 느낀다. 
+- Recursive 하게 문제를 해결하려고 하는데 depth 가 깊어지면서 흐름을 이해하기가 너무 어려워진다. 
+
+> 해결 
+### 시도1
+- 지금까지 문제를 풀었던 경험을 살려서 해답을 비슷하게 모방해보려고 했다. 
+- BackTracking Tree 를 아래와 같이 만들었는데, 주어진 배열의 요소를 순서대로 remove 해가며 res 를 업데이트 하는 방식으로 문제를 해결 했다. 
+![image](https://user-images.githubusercontent.com/36659877/198554709-f2dbc736-7ab1-4558-93ad-843f8357b151.png)
+- 하지만 맨 끝단의 트리를 보면 중복되어 있는 요소들이 보일것이다. 중복을 해결하기 위해서 contains 메소드를 사용했는데, extra time complexity 를 추가 하기 때문에 효율적이지 못하다. 
+
+- 구현 
+```swift 
+func subsets(_ nums: [Int]) -> [[Int]] {
+  
+  var res: [[Int]] = [[]]
+  //basecase
+  if nums.isEmpty {return []}
+  res.append(nums)
+
+  for i in 0..<nums.count {
+    var copy = nums
+    copy.remove(at: i)
+    let singleElement = subsets(copy) // [[2,3]]
+    for element in singleElement {
+      if !res.contains(element) {
+        res.append(element)
+      }
+    }
+  }
+
+  return res
+}
+```
+
+### 시도2: 백트래킹 
+- 더할건지 더하지 않을껀지 2가지 선택에서 백트래킹 방법으로 문제를 해결할수있다.
+- 여기서 2가지의 선택은 첫번째 요소부터 시작해서 이 요소를 존재하는 배열에 넣을건지 말건지에 대한 선택이다. 
+![image](https://user-images.githubusercontent.com/36659877/198561557-9c360f40-0f24-433f-889e-550da2b6ef54.png)
+
+- 구현 
+```swift 
+  func subsets(_ nums: [Int]) -> [[Int]] {
+
+    var res: [[Int]] = []
+    var subSet: [Int] = []
+    //[1,2,3]
+    func dfs(_ index: Int) {
+      //baseCase would be..
+      if index >= nums.count{
+        res.append(subSet)
+        return
+      }
+
+      //for selecting current index of element
+      subSet.append(nums[index])
+      dfs(index+1)
+
+      //not selecting current index
+      subSet.removeLast() //Empty Subset
+      dfs(index+1)
+    }
+
+    dfs(0)
+    return res
+  }
+```
+- Time Complexity = `O(n*2^n)` where n = length of given array. 2 = selection choices of each element
 
 </details>
