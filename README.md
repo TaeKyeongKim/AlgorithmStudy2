@@ -1282,3 +1282,62 @@ func subsets(_ nums: [Int]) -> [[Int]] {
 - Time Complexity = `O(n*2^n)` where n = length of given array. 2 = selection choices of each element
 
 </details>
+
+<details> 
+
+  <summary> 5.0 Word Search </summary> 
+
+> 고민 
+- Number of island 문제와 많이 흡사하다는 생각이 들었다. 
+- 주어진 word 의 첫번째 단어를 찾을시 그 요소의 좌,우,하,상 방향을 탐색해서 주어진 단어를 이어갈수 있는지 확인하는 로직으로 접근했다. 
+
+> 해결 
+- 하나의 요소에 쭉연결되어 있는지 확인할수 있도록 DFS 방식으로 문제를 해결했지만, 현재 로직의 런타임 시간이 들쑥날쑥해서 leetCode 에 통과를 했다 못했다 하는 상황이 발생. 
+
+```swift 
+func exist(_ board: [[Character]], _ word: String) -> Bool {
+
+  let reversedWord = String(word.reversed())
+
+  for row in 0..<board.count {
+    for col in 0..<board[row].count {
+      if let nextWord = reversedWord.last, board[row][col] == nextWord {
+        let word = search(row: row, col: col, grid: board, word: reversedWord)
+        if word.isEmpty {
+          return true
+        }
+      }
+    }
+  }
+  return false
+}
+
+func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
+  guard row >= 0, row < grid.count,
+        col >= 0, col < grid[row].count,
+        grid[row][col] == word.last
+  else {return word}
+  
+  var newWord = word
+  newWord.removeLast()
+  var map = grid
+  map[row][col] = " "
+  let res = newWord
+  
+  //위, 아래, 오른, 왼
+  if  search(row: row-1, col: col, grid: map, word: newWord).isEmpty ||
+      search(row: row+1, col: col, grid: map, word: newWord).isEmpty ||
+      search(row: row, col: col+1, grid: map, word: newWord).isEmpty ||
+      search(row: row, col: col-1, grid: map, word: newWord).isEmpty
+  {
+    return ""
+  }
+    
+  return res
+}
+```
+
+- Time Complexity = `O(n*m*dfs)` , where n = number of row, m = number of col
+  
+</details> 
+
