@@ -1341,3 +1341,68 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   
 </details> 
 
+----
+## Sorting and Searching 
+
+<details> 
+  <summary> 1.0 Sort Colors </summary>
+  
+  > 고민 
+  - counting Algorithm 이 무었인지 몰라 찾아보고 문제를 품. 
+  
+  > 해결 
+  
+  ### Counting Sort Algorithm 
+  
+  1.0 각각의 요소의 갯수를 세어준다. 
+  
+  2.0 세어진 요소의 개수를 오른쪽 방향으로 축적하며 더해준다. 
+  
+  3.0 오른쪽으로 한칸씩 이동시킨다. 
+  
+ ![image](https://user-images.githubusercontent.com/36659877/198857951-fbe27d50-5113-4b11-92d8-bcfc6926c5bb.png)
+  
+  
+  ### Implementation of Counting Sort Algorithm 
+  
+  - nums 와 같은 길이인 배열을 하나 더 만든다
+  - counting sort 배열에 있는 인덱스 값들과 nums 요소의 값을 매칭시켜서 새로운 배열에 순서대로 정렬 시켜놓는다. 
+  
+  > 결과 
+  ```swift 
+      func sortColors(_ nums: inout [Int]) {
+
+      var countList = Array(repeating: 0, count: 3)
+      var res = Array(repeating: 0, count: nums.count)
+      //Counting Algorithm
+      for i in 0..<nums.count {
+        countList[nums[i]] += 1
+      }
+
+      for i in 1..<countList.count {
+        countList[i] += countList[i-1]
+      }
+
+      for i in 0..<countList.count-1 {
+        let lastIndex = countList.count-1-i
+        countList[lastIndex] = countList[lastIndex-1]
+      }
+      countList[0] = 0
+
+      //Sort Nums
+      for i in 0..<nums.count {
+        let index = countList[nums[i]]
+        let value = nums[i]
+        res[index] = value
+        countList[nums[i]] += 1
+      }
+
+      nums = res
+
+    }
+  ```
+  
+  - Time Complexity = `O(n+k)` where n = length of nums, k = range of colors 
+  - Space Complexity = `O(n+k)`
+  
+</details> 
