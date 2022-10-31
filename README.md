@@ -1406,3 +1406,47 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(n+k)`
   
 </details> 
+
+<details> 
+  <summary> 2.0 Top K Frequent Elements </summary>
+  
+  > 고민 
+  - max heap 을 굳이 구현해야할까? 
+  - 처음 return K most frequently elements 라는 의미를 전혀 이해하지 못함. 
+  - 요소가 K 만큼 있는 것을 반환하는 줄 알았는데, K 번 이상 불린게 있다면 그 요소들을, 없다면 그 이하로 불린 요소들을 반환해주는 것이였다. 
+  
+  > 해결 
+  - 딕셔너리를 이용해서 sort 해주면 굳이 max heap 을 따로 구현해야할 필요가 없기때문에 디셔너리를 이용해서 문제를 해결. 
+  - 대신 max heap 처럼 사용해야하기 때문에, desending order 로 sort 해주어야했슴.
+  
+  
+  > 결과 
+  ```swift 
+    func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
+
+      var count:[Int: Int] = [:]
+      var res: [Int] = []
+
+      for num in nums {
+        if count[num] == nil {
+          count.updateValue(1,forKey:num)
+        }else {
+          count[num]! += 1
+        }
+      }
+
+      let sorted = count.sorted(by: {$0.value>$1.value})
+
+      for i in 0..<k {
+        res.append(sorted[i].key)
+      }
+
+      return res
+    }
+  ```
+  
+  - Time Complexity = `O(n)`
+  
+  - Space Complexity = `O(n)`  
+</details> 
+
