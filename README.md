@@ -1472,3 +1472,49 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(1)`
 
 </details> 
+
+<details> 
+  <summary> 4.0 Find Peak Element </summary>
+  
+  > 고민 
+  - 어떻게 O(logn) 시간 복잡도로 문제를 해결할까? 
+  
+  > 해결 
+  - 처음엔 요소하나하나씩 검사해서 전 요소보다 현재 요소가 크고, 다음요소보다 작을때 해당 인덱스를 반환하도록 접근했지만 O(n) 의 시간 복잡도를 형성하게 됨
+  - Binary search 를 사용한 접근 방법을 찾아 봤고, left, right, pivot indexing 을 사용해서 문제를 해결했다. 
+    - 처음 left 와 right 을 0,nums 의 마지막 인덱스로 할당해주고 (left+right)/2, 그 중앙에 있는 인덱스를 pivot 으로 설정해주었다.
+    - 그후, pivot 에 위치한 요소가 그 다음 요소보다 값이 작을경우 현재 pivot 보다 오른쪽 에 더 큰값이 있는것으로 판별, left 를 pivot + 1 로 설정해준다. 
+    - 만약 그 반대로 pivot 에 위치한 요소가 다음 요소의 값보다 클경우 pivot 중심으로 왼쪽에 peak 이 있다고 판별, right 를 pivot 으로 할당해준다. 
+    - 이 과정을 계속 반복하면, left 와 right 가 맞물리게 되는데, 이때 while 룹을 빠져나온다. 
+    - right, 혹은 left 인덱스를 마지막으로 반환해주면, 주어진 배열의 peak index 를 찾을수 있게된다. 
+  ![image](https://user-images.githubusercontent.com/36659877/198945096-ffe501ba-e28f-41c4-88d6-a811b0ae7877.png)
+
+  > 결과 
+  ```swift
+  func findPeakElement(_ nums: [Int]) -> Int {
+  
+    var right = nums.count-1
+    var left = 0
+
+    if nums.count <= 1 {return 0}
+
+    while left < right  {
+      let pivot = (left + right)/2
+      let curr = nums[pivot]
+      let next = nums[pivot+1]
+
+      if curr < next {
+        left = pivot+1 //3
+      }else {
+        right = pivot
+      }
+    }
+    return left
+  }
+  ```
+                    
+  - Time Complexity = `O(logn)`
+  
+  - Space Complexity = `O(1)`  
+
+</details>
