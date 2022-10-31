@@ -1450,3 +1450,25 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(n)`  
 </details> 
 
+<details> 
+  <summary> 3.0 Kth Largest Element in an Array </summary> 
+  
+  > 고민 
+  - sorting algorithm 을 따로 구현 해야하나? 
+  
+  > 해결 
+  - 그냥 Foundation 에서 지원해주는 sorted() 메소드 사용해서 문제 해결함. 
+  
+  > 결과 
+  
+  ```swift 
+     func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        let sorted = nums.sorted(by: {$0>$1})
+        return sorted[k-1]
+    }
+  ```
+  - Time Complexity = `O(n)`
+  
+  - Space Complexity = `O(1)`
+
+</details> 
