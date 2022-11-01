@@ -1518,3 +1518,104 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(1)`  
 
 </details>
+
+<details> 
+  <summary> 5.0 Serach Range </summary> 
+  
+  > 고민 
+  - O(logn) 시간 복잡도록 문제 해결하기.. 
+  
+  > 해결 
+  - 첫번째 시도는 배열의 첫번째 Target 인덱스를 구해서 left 를 미리 설정해 주는것이다. 
+  - 첫번째 target 을 발견하면, 그 인덱스가 left 가 되고, right 인덱스를 binary search 를 이용해서 문제를 해결하는 방법이다. 
+  
+  ```swift 
+    func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+      guard let left = nums.firstIndex(of: target) else {
+        return [-1,-1]
+      }
+
+      var right = nums.count-1
+
+      while (nums[left] != target || nums[right] != target) {
+        let pivot = (left+right)/2
+        let curr = nums[pivot]
+        let nextVal = nums[pivot+1]
+
+        if nextVal > curr {
+          right = pivot
+        }else {
+          right -= 1
+        }
+
+      }
+      return [left,right]
+    }
+  ```
+  - 그런데 이방법이 O(logn) 시간복잡도를 충족시키는지에 관한 의문이 든다. 
+  - 그 이유는 첫번째 target 인덱스를 찾을때까진 linear search 를 하게 되기 때문이다. 
+  - 따라서 left 또한 binary serach 를 이용해서 구하는 방식을 사용해서 문제를 해결했다. 
+  
+  > 결과 
+  
+  ```swift 
+  func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+    guard !nums.isEmpty else {return [-1,-1]}
+    var res: [Int] = []
+    res.append(findStartIndex(nums,target))
+    res.append(findEndIndex(nums,target))
+    return res
+  }
+
+  func findStartIndex(_ nums: [Int], _ target: Int) -> Int {
+    var res = -1
+    var left = 0
+    var right = nums.count-1
+
+    while left <= right {
+      let pivot = (left+(right))/2
+      let curr = nums[pivot]
+
+      if (curr >= target) {
+        right = pivot-1
+      } else {
+        left = pivot+1
+      }
+
+      if (curr == target) {
+        res = pivot
+      }
+
+    }
+    return res
+  }
+
+  func findEndIndex(_ nums: [Int], _ target: Int) -> Int {
+    var res = -1
+    var left = 0
+    var right = nums.count-1
+
+    while left <= right {
+      let pivot = (left+right)/2
+      let curr = nums[pivot]
+
+      if (curr <= target) {
+        left = pivot+1
+      } else {
+        right = pivot-1
+      }
+
+      if (curr == target) {
+        res = pivot
+      }
+
+    }
+    return res
+  }
+  ```
+  
+  - Time Complexity = `O(logn)` 
+  
+  - Space Complexity = `O(logn)` 
+
+</details>
