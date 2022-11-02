@@ -1619,3 +1619,45 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(logn)` 
 
 </details>
+
+<details> 
+  <summary> 6.0 Merge Intervals </summary> 
+  
+  > 고민 
+  - 현재 배열의 요소와 다음 요소가 포함하고 있는관계를 어떻게 수식해야할지 고민을했다. 
+  - 처음엔 주어지는 배열의 요소가 ascending 순으로 sort 되어 있는줄알아서 문제를 풀면서 해멨다. 
+  
+  > 해결 
+  - 다음 요소의 배열의 포함관계 수식화 
+  - 아래 다이어그램을 그려보면서 어떤 수식으로 표현해야하는지 알아봄
+  ![image](https://user-images.githubusercontent.com/36659877/199403456-e9a8eb33-f1c2-478e-b873-93cc8e5114ed.png)
+  - 첫번째로 배열의 첫번째요소 (시작점) 을 기준으로 sort 를 해준다. (이렇게 하면 첫번째 배열의 첫번째 요소는 가장 작은 값이니 어디서 부터 시작해하는지 생각할 필요가 없어진다).
+  - 다음배열의 첫번째 요소가 현재 배열의 마지막요소보다 같거나 작을시, merge 되는 것을 확인할수 있다. -> merge 되는 경우는 끝나는 값을 현재 배열의 끝과 다음 배열의 끝을 비교해서 업데이트해주어야한다. 
+  - 만약 다음배열의 첫번째 시작요소가 더 클경우는 (머지가 안되는경우) append() 시켜준다. 
+  
+  > 결과 
+  ```swift 
+  func merge(_ intervals: [[Int]]) -> [[Int]] {
+    var sortedIntervals = intervals.sorted(by: {$0<$1}) 
+    var res: [[Int]] = [] 
+    
+    for interval in sortedIntervals {
+      if res.isEmpty || res[res.count-1][1] < interval[0] { //이전 요소의 마지막 값이 현재 시작값보다 작다면 머지 하지 않음.
+        res.append(interval)
+      }else {
+        //머지해줘야하는데, 마지막 값을 업데이트 시켜줘야한다. 
+        res[res.count-1][1] = max(res[res.count-1][1], interval[1])
+      } 
+     
+    }
+  
+  }
+  ```
+  
+  
+  - Time Complexity = `O(Nlogn)` (worst case for sort)
+  
+  - Space Complexity = `O(n)`
+
+  
+</details> 
