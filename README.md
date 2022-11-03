@@ -1661,3 +1661,57 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
 
   
 </details> 
+  
+<details> 
+  <summary> 7.0 Search in Rotated Sorted Array </summary> 
+  
+  > 고민 
+  - O(logn), binary search 로 어떻게 partially sorted 한 array 를 탐색할수 있을까? 
+  
+  > 해결 
+  - 문제는 내가 해결하지 못했다. 
+  - [여기](https://www.youtube.com/watch?v=U8XENwh8Oy8) 를 참조 해서 문제를 해결했는데 너무 복잡하다는 생각이든다. 
+  - 전체적인 흐름은 binary search 를 기반으로 해서 중심 pivot 기준으로 첫번째 요소와 값을 비교한다. 이렇게 하면 현재 pivot 의 기준으로 왼쪽/오른쪽 방향으로 sorted 되있는지 알수 있기 때문이다. 
+  - 그 이후 Target 값과 mid, left, right 값을 비교하며 left, right 를 업데이트 시켜주고 이과정을 left <= right 될때까지 반복한다. 
+  
+  > 결과 
+  ```swift 
+  func search(_ nums: [Int], _ target: Int) -> Int {
+  
+    var left = 0
+    var right = nums.count-1
+
+     while left <= right {
+      let pivot = (left+right)/2
+
+      if nums[pivot] == target {
+        return pivot
+      }
+
+      //Left sortPortion
+      if nums[left] <= nums[pivot] {
+        if nums[pivot] < target ||  target < nums[left] { //
+          left = pivot+1
+        }else {
+          right = pivot-1
+        }
+
+      }else {
+        //Right sortPortion
+        if target < nums[pivot] || target > nums[right]{
+          right = pivot-1
+        }else {
+          left = pivot+1
+        }
+      }
+    }
+    return -1
+  }
+  ```
+  - Time Complexity = `O(logn)`
+  
+  - Space Complexity = `O(1)`
+  
+</details>
+  
+  
