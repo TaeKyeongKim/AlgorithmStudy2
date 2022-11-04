@@ -1714,4 +1714,80 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   
 </details>
   
+<details> 
+  <summary> 8.0 Search a 2D Matrix II </summary>
   
+  > 고민 
+  - Brute Force 보다 더 빠르게 문제를 어떻게 풀어야할까? 
+    - 각 row 와 col 들이 Ascending 한 순으로 sort 되있다는 힌트는 binary search 를 할수 있는 최적의 조건이고, brute force 방법보다 빠르게 문제를 해결할수 있다. 
+    - 그럼 어떻게 binary search 를 적용할까? 
+    
+  > 해결 
+  - 일단 직관적으로 어떻게 주어진 Target 을 구할수 있을지 한번 생각해 보았다. 
+    - 1.0 첫번째 row 에 주어진 Target 값과 가장 근접한 값의 index 를 찾는다. (이때 Target 과 같은 값을 찾으면 true 반환) 
+      -> 가장 근접하는 뜻은 그 다음 인덱스에 있는 값들과 col 의 값들은 Target 의 값보다 크다는 뜻이된다. 
+      ![image](https://user-images.githubusercontent.com/36659877/199996183-373c3e2f-0bf1-40c3-b0c9-0ab4284c991a.png)
+
+    - 2.0 찾은 index 에서 column 부터 첫번째 컬럼 까지 검사를 한다.
+     ![image](https://user-images.githubusercontent.com/36659877/199996369-3c2a0fd4-9d47-4114-b4de-5d4dbdf5272f.png)
+
+  - 이 과정을 Binary Search 알고리즘을 적용한다면 BruteForce 보다 빠르게 탐색할수 있다. 
+  
+  
+  > 결과 
+  ```swift 
+   func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
+      let row = 0
+      var col = 0
+      var left = 0
+      var right = matrix[row].count-1
+
+  
+      //1.0 Search to find Starting Point from the first row
+      while left <= right {
+        let mid = (left+right)/2
+        let curr = matrix[row][mid]
+
+        if curr == target || matrix[row][left] == target || matrix[row][right] == target {
+          return true
+        }
+
+        if curr < target {
+          left = mid+1
+        } else {
+          right = mid-1
+        }
+      }
+
+
+      //2.0 Search Backwards til Col == 0
+      col = right
+      while col >= 0 {
+        left = 0
+        right = matrix.count-1
+        while left <= right {
+          let mid = (left+right)/2
+          let curr = matrix[mid][col]
+
+          if curr == target || matrix[left][col] == target || matrix[right][col] == target {
+            return true
+          }
+
+          if curr < target {
+            left = mid+1
+          }else {
+            right = mid-1
+          }
+        }
+        col -= 1
+      }
+
+      return false
+    }
+ ``` 
+  
+  - Time Complexity = `O(logn)`
+  
+  - Space Complexity = `O(1)`
+
+</details>
