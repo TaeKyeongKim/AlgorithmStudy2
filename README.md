@@ -1791,3 +1791,40 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(1)`
 
 </details>
+
+----
+## Dynamic Programming 
+
+<details> 
+   <summary> 1.0 Jump Game </summary> 
+   
+   > 고민 
+   - 어떻게 DP 로 문제를 해결야하나? 
+   
+   > 해결 
+   - 이 문제는 DP와 Greedy 방법으로 해결할수 있는데, DP을 사용한 방법은 O(n^2) 의 시간복잡도를 가지게 되고, Greedy 는 O(n) 의 시간복잡도를 가지고 해결할수 있어 Greedy 방식으로 문제를 해결
+   - 로직 : 
+      - 마지막 인덱스에 도달할수 있는지 알면되기 때문에 마지막 인덱스 이전의 인덱스 값 + 요소 값이 마지막 인덱스에 도달할수 있는지 확인한다. 
+      - 만약 마지막 인덱스에 도달할수 있다면 이전의 인덱스(nums.count-3) 이 (nums.count-2) 에 도달할수 있는지 확인하면된다. 
+      - 첫번쨰 인덱스 요소가 다음 인덱스에 도달할수 있다면 true 를 반환한다. 
+
+   > 결과 
+   
+   ```swift 
+   func canJump(_ nums: [Int]) -> Bool {
+      var goal = nums.count-1
+
+      for i in stride(from: nums.count-1, through:0 , by: -1){
+        if (i+nums[i]) >= goal {
+           goal = i
+        }
+      }
+      return goal == 0
+    }
+   ```
+   
+  - Time Complexity = `O(N)`
+  
+  - Space Complexity = `O(1)`
+
+</details>
