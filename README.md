@@ -1828,3 +1828,45 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   - Space Complexity = `O(1)`
 
 </details>
+
+<details> 
+  <summary> 2.0 Unique Path </summary> 
+  
+  > 고민 
+  - 처음 시작 점에서 부터 오른쪽, 왼쪽으로 가는 선택지가 있으니까 가는 선택지의 좌표를 cache 해놓고 문제를 풀면되지 않을까? 라는 만연한생각을 했다. 
+  - 그리고 아래와같이 트리를 그리면서 Valid 한 path 를 어떻게 하면 기록해서 그 수를 셀수 있을지 고민 해봤지만... 어떻게 Path 를 저장해야하지? 라는 것에서 막혀버렸다. 
+  
+  ![image](https://user-images.githubusercontent.com/36659877/200159018-c29fa0ae-f9ed-43c3-b2ad-98391ff4cd58.png)
+
+  > 해결 
+  - 여러 길의 Path 를 저장해놓는방법을 아래와 같이 해결한다. 
+    - 아래 그림은 좌표 (1,1) 까지 갈수 있는 방법을 계산하고자 한다.   
+    - 문제에서 주어진것처럼 하나의 좌표에서 갈수 있는 방향은 오른쪽과 아래 방향이다. 따라서 해당좌표에서 바라보았을때 여기까지 올수있는 옵션은 왼쪽, 위 에서 오는 방향이라고 말할수 있다. 
+  ![image](https://user-images.githubusercontent.com/36659877/200159473-af7fe346-454f-46df-abb1-945ced519cb6.png)
+  
+  - 그럼 어떤 값으로 해당좌표까지 올수 있는 path 의 개수를 나타낼수 있을까? 
+    - 첫시작점에서 첫시작점까지 올수 있는 방법은 1가지 방법뿐이다. 그럼 그 좌표에서 갈수 있는 방향또한 첫번째 좌표에서 오른쪽으로 가는방법 1가지, 아래로 가는방법 1가지 뿐이다. 
+    - 즉 최소 경로의 갯수는 1개라는 뜻이다. 
+    - 따라서 mxn 만큼의 배열을 1로 할당해준다. 
+    - 이렇게 되면, (1,1) 까지로 갈수 있는 방법은 위, 왼쪽에서 오늘 방법들을 합한게 되는데 아래 다이어그램에 표기했듯, (0,1), (1,0) 까지 가는 방법이 각각 1이여서 (1,1)까지 가는 방법은 2가지가 된다. 
+    - 이 방법을 마지막 요소까지 진행하여 배열 각 좌표에 도달할수 있는 경로의 수를 업데이트 해주면된다. 
+![image](https://user-images.githubusercontent.com/36659877/200159636-ce05fa64-4fb2-4d09-bbf6-d8ef6e433cdb.png)
+
+  > 결과
+  ```swift 
+    func uniquePath( _ m:Int, _ n:Int) -> Int { 
+      var dp = Array(repeating: Array(repeating: 1 count: n), count:m)
+      
+      //첫번째 열의 값은 모두1 (오른쪽 하나의 방향으로 가는 방법밖에 없으니)
+      for i in 1..<m { 
+        for j in 1..<n { 
+          dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        }
+      }
+      
+      return dp[m-1][n-1]
+    }
+  
+  ```
+  
+</details>
