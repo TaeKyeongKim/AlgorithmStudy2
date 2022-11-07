@@ -1870,3 +1870,55 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   ```
   
 </details>
+
+
+<details> 
+  <summary> 3.0 Coin Change </summary> 
+
+> 고민 
+- 큰수에서 부터 나누어서 나머지 값을 그 다음큰수로 나누어 모든 코인은 순회하고 사용된 코인 개수를 세는 방식으로 문제를 해결하려고 했으나, 최소 코인의 개수를 사용해서 amount 를 충족시키지 못하기 때문에 DP 방법을 알아봄. 
+  
+  
+> 해결 
+- dp 라는 배열을 만들었는데 amount+1 만큼의 개수와 초기요소의 값도 amount + 1 으로 설정을 한다. 
+  - 각 요소는 [amount] 일때의 필요한 코인의 개수를 명시한다. amount + 1 인 이유는 이후에 값 1 부터 amount 까지 순회하며 현재 amount 에 할당되어있는 코인의 개수를 업데이트 해주기위해 (최소값) amount 에 1 을 더한 것이다. 
+  - amount + 1 을 하는 이유는 amount 가 0 일때 의 케이스를 커버하기 위하여 일부로 하나 더큰 배열로 만듦
+  
+- 만약 Coins = [1,3,4,5] , Amount = 7 일시, dp 에는 dp[Amount] = number coin 이 저장되는데, amount 는 0 부터 주어진 amount 까지 존재하며 각 amount 에 필요한 코인의 최소 개수는 dp 에 저장된다. 
+
+- Amount 가 0 부터 6까지 일때 dp 업데이트 현황
+
+![image](https://user-images.githubusercontent.com/36659877/200245701-aace2498-b9a8-4451-acbe-be61e920157a.png)
+
+  - Amount 가 7 일시, coins 을 순회하며 (7-coin) >= 0 일때 (음수일시 amount 값을 초과해버림) 현재 저장되어있던 dp 값과, 새로선택된 coin 의 dp 값중 작은 값으로 dp 를 업데이트 시킨다. 
+   - 고른 코인이 1일시, 
+    dp[7] = 1 + dp[7-1] = 3
+    
+    
+  - 고른 코인이 3일시, 
+    dp[7] = 1 + dp[7-3] = 2 
+
+> 결과 
+
+```swift 
+func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+  
+  var dp:[Int] = Array(repeating: amount+1, count: amount + 1)
+  dp[0] = 0
+  
+  for i in 1..<dp.count {
+    for coin in coins {
+      if (i - coin) >= 0 {
+        dp[i] = min(dp[i], 1+dp[i-coin])
+      }
+    }
+  }
+  return dp[amount] == amount+1 ? -1 : dp[amount]
+}
+
+```
+- Time Complexity = `O(amount * coins.count)`
+  
+- Space Complexity = `O(amount)`  
+
+</details>
