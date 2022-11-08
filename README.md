@@ -1922,3 +1922,75 @@ func coinChange(_ coins: [Int], _ amount: Int) -> Int {
 - Space Complexity = `O(amount)`  
 
 </details>
+
+
+<details> 
+  <summary> 4.0 Longest Increasing Subsequence </summary> 
+  
+  > 고민 
+  - 뭔가 각 요소 하나하나 선택했을때 그 다음 요소가 이전의 요소보다 작을시 카운트를 하지 않게 알고리즘을 작성하면될것같다. 
+  - 하지만 이게 sequence 로 구성이 있으니 주어진 배열하나하나 에서 나올수 있는 모든 subsequence 를 찾아야하는데.. 여기서 머리가 멈췄다. 
+  
+  > 해결 
+  - 일단 첫번째 생각은 얼추 들어 맞았다. 문제는 결국엔 DP 를 사용해서 해결하지만 거기까지 도달하는 생각의 흐름은 아래와 같다. 
+  
+  ### Brute Force - DFS (Generate every possible subsequence) 
+  - Given array = [0,1,0,3,2,3] 
+  - 각 요소 마다 subsequnce 에 추가할건지 말건지에 대한 2가지의 선택지가 주어지는데, 이렇게 문제를 해결하게되면 O(2^n) 지수시간의 시간복잡도가 형성이 된다. 
+  - 따라서 DP 를 사용해 알고리즘의 효율성을 높힌다. 
+  
+  ### Using DP 
+  - Given array = [1,2,4,3], 일때 Longest Subsequence 는 [1,2,4] 혹은 [1,2,3] 으로 3개가 된다. 
+  - 문제풀이는 일단 Brute Force 접근방식부터 시작해서 어떻게 DP 를 사용해야할지 고민을 해보자. 
+  
+  > 1.0 Check all subsequences starting at first index to the end 
+  - 이때 subsequence 는 오름순 이여야하기 때문에 이전인덱스의 값이 현재 인덱스의 값보다 작은지 확인해야한다. 
+  - 아래 보이는 다이어그램은 0번째 인덱스를 선택했을때 어떻게 subsequnces 들이 구성되는지 그린것이다.
+  
+  ![image](https://user-images.githubusercontent.com/36659877/200486686-d67e39ca-f741-4a78-86d8-5bacfc940a4a.png)
+
+  > 2.0 Identify Duplicated Patterns 
+  - 0 번째인덱스에서 시작해 마지막 트리를 보면 [1,2,4] 에서 3번째 인덱스로 나아갈땐 다음 인덱스 요소가 3이기 때문에 더이상 나아가지 못하게된다. 
+  - 마찬가지로 3번째 인덱스에서 4번째 인덱스로 가려고 하지만 주어진 배열의 크기를 벚어남으로 더이상 나아가질 못한다. 
+  
+  - 이런상황은 첫번째 인덱스를 [2] 또는 [3] 을 선택해서 간것과 같은 패턴을 보여준다. 
+  - 인덱스 2 를 첫번째로 선택할 경우에는 [4] 가 되고, 그 다음 인덱스 3 은 [4] 보다 작기때문에 더이상 나아가질 못한다. 
+  - 인덱스 3 를 첫번째로 선택할 경우에는 [3] 가 되고, 그 다음 인덱스 4 주어진 배열의 크기를 벗어남으로 더이상 나아가질 못한다.
+    
+  - 따라서 이런 공통적인 패턴을 cache 해두고 같은상황이 왔을때 다시 사용하도록 하면된다. 이 캐싱 과정을 그려보면 아래와같다. 
+  
+  ![image](https://user-images.githubusercontent.com/36659877/200487991-eb3bfa43-86e7-48b0-9396-72b23a9e9a64.png)
+  
+  - 그렇다면 LIS[1] 과 LIS[0] 은 어떻게 구한것인가? 
+    - LIS[1] 은 `1 번째 인덱스 를 선택한 것`, `1 번째 인덱스 를 선택 + LIS[2] 선택 한 것`, `1 번째 인덱스 를 선택 + LIS[3] 선택 한 것` 중에 가장 개수가 많은 subsequnce 를 선택해주면 된다. 
+    - 마찬가지로 LIS[0] 은 
+      - `0 번째 인덱스 를 선택한 것`, `0 번째 인덱스 를 선택한 것 + LIS[1] 선택 한 것` `0 번째 인덱스 를 선택한 것 + LIS[2] 선택 한 것` `0 번째 인덱스 를 선택한 것 + LIS[3] 선택 한 것` 중에 가장 개수가 많은 subsequnce 를 선택해주면 된다. 
+  
+  > 결과 
+
+  - 위 패턴을 본결과, 마지막 인덱스부터 subsequence 를 체크하면 가장 작은 subproblem 을 풀수 있기때문에 마지막 인덱스의 요소에서부터 만들수있는 subsequence 의 개수를 
+  DP 에 업데이트 해주도록 알고리즘을 구현해준다. 
+  
+  ```swift 
+  func lengthOfLIS(_ nums: [Int]) -> Int {
+        //lowest length of subsequence = 1 
+        var dp: [Int] = Array(repeating: 1, count: nums.count)
+        
+        //뒤에서 부터 거꾸로 인덱스를 거쳐오면서 이전의 요소값이 현재 요소값인지 작은지 확인하고 
+        //dp 를 업데이트 해준다. 
+        for i in stride(from: nums.count-2, through: 0, by: -1){
+            for j in i+1..<nums.count { 
+                if nums[i] < nums[j] {
+                    dp[i] = max(dp[i], 1+dp[j])
+                }
+            }            
+        }       
+        return dp.max()! 
+    }
+  ```
+  
+  - Time Complexity = `O(n^2)` 
+  
+  - Space Complexity = `O(n)`
+
+</details>
