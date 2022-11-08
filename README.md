@@ -1981,7 +1981,12 @@ func coinChange(_ coins: [Int], _ amount: Int) -> Int {
         for i in stride(from: nums.count-2, through: 0, by: -1){
             for j in i+1..<nums.count { 
                 if nums[i] < nums[j] {
-                    dp[i] = max(dp[i], 1+dp[j])
+                    dp[i] = max(dp[i], 1+dp[j]) 
+                    //ex i = 1 
+                    //dp[1] = 1 
+                    //dp[1] = max(1, 1+dp[2]) , dp[2] = 2, therefore, dp[1] = 2
+                    //dp[1] = max(2, 1+dp[3]) , dp[3] = 2 , therefore, dp[1] = 2
+ 
                 }
             }            
         }       
