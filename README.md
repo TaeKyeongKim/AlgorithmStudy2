@@ -2000,3 +2000,66 @@ func coinChange(_ coins: [Int], _ amount: Int) -> Int {
   - Space Complexity = `O(n)`
 
 </details>
+  
+---- 
+
+## Design
+  
+<details>
+  <summary> 1.0 Serialize and Deserialize Binary Tree </summary>  
+  
+  > 고민 
+  - 처음으로 문제를 보았을때 BFS 방식으로 레벨 하나씩 하나씩 node 의 value 를 빼내서 string 으로 합쳐서 serialize 한뒤 deserialize 하면 되지 않을까? 라는 생각을 했다. 
+  
+  > 해결 
+  - BFS 방식으로 serialize 하는것까지는 됐으나, deserialize 할때 어떻게 구현해야할지 감이잡히지않아 조금찾아봤더니 DFS 방법으로 문제를 해결하는방법이 훨씬 깨끗하고 쉽게구현할수있었다.
+   
+  > 결과 
+  ```swift 
+  func serialize(_ root: TreeNode?) -> String {
+        guard let root = root else {return ""}
+        var res: [String] = []
+        
+            func dfs(_ node: TreeNode?) { 
+                if node == nil {
+                    res.append("nil")
+                    return
+                }
+                
+                res.append(String(node!.val))
+                dfs(node?.left)
+                dfs(node?.right)
+            }
+        
+         dfs(root)
+         return res.joined(separator: ",") 
+        }
+
+    
+    func deserialize(_ data: String) -> TreeNode? {   
+        guard !data.isEmpty else {return nil}        
+        var dataArray = data.split(separator: ",").map { Int(String($0)) }
+        var index = 0
+
+        func dfs() -> TreeNode? {            
+        
+            guard let val = dataArray[index] else {
+                index += 1
+                return nil
+            }
+            
+            index += 1
+            var node = TreeNode(val)
+            
+            node.left = dfs()
+            node.right = dfs()
+            return node
+        }
+
+        return dfs()
+    }
+  ```
+
+</details>
+  
+  
