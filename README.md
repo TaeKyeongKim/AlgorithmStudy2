@@ -746,7 +746,7 @@ class Solution {
  - 순회 순서 => Root, Left, Right
  -> F > B > A > D > C > E > G > I > H 
 
-### Preorder (전위 순회) 방식 
+### Inorder (전위 순회) 방식 
 
  ![image](https://user-images.githubusercontent.com/36659877/197229986-4f49811c-90cb-45ed-8d71-dcf4584b630b.png)
 
