@@ -148,6 +148,7 @@ class Solution {
       }
     }
 
+
     for item in commons {
       res.append(item.value)
     }
