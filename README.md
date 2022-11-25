@@ -1346,6 +1346,71 @@ func search(row: Int, col: Int, grid: [[Character]], word: String) -> String {
   
 </details> 
 
+
+<details> 
+  <summary> 6.0 Largest Time for Given Digits </summary> 
+  
+  > 고민 
+  - 어떻게 4개의 수로 만들수 있는 valid 한 모든 조합의 시간을 만들수 있을까? 
+  - valid 한 시간중에 가장 늦은 시간을 어떻게 찾을까? 
+  
+  > 해결 
+  - 위 `3.0: Permutation` 에서 주어진 수의 모든 조합을 구하는 알고리즘을 이용하여 첫번째로 모든 조합의 수를 만들어냈다. ([[Int]] 값으로 저장)
+  - 그후, 모든 조합의 수를 순회하며 valid 한 시간인지 검사를 해주었다. (String 으로 저장) 
+  - 마지막으로 valid 한 시간의 max 값을 Int 로 바꿔주어 시간을 나타내기 위해 100 으로 나누어 준 수들을 string 으로 변환, %100 한 수를 분 으로 나타내 주었다. 
+  
+  > 결과 
+  ```swift 
+  func largestTimeFromDigits(_ arr: [Int]) -> String {
+
+    let permutations = getPermutations(arr.sorted(by: <))
+    var validTimes: Set<String> = []
+
+    for permutation in permutations {
+      //MARK: Time Validation
+      if permutation[0] > 2 ||
+         (permutation[0] == 2 && permutation[1] > 3) ||
+          permutation[2] > 5
+      { continue }
+      let timeInStr = permutation.map({String($0)}).joined()
+      validTimes.insert(timeInStr)
+    }
+
+    if let max = validTimes.map({Int($0)!}).max() {
+      let hour = max/100 < 10 ? "0\(max/100)":"\(max/100)"
+      let minutes = max%100 < 10 ? "0\(max%100)" : "\(max%100)"
+      return hour + ":" + minutes
+    }
+    return ""
+  }
+
+  func getPermutations(_ arr: [Int]) -> [[Int]] {
+    var allPermutations: [[Int]] = []
+    var arrayCP = arr
+    if arr.count == 1 {return [arr]}
+
+    for _ in 0..<arr.count {
+      let n = arrayCP.remove(at: 0)
+      var perms = getPermutations(arrayCP)
+
+      for i in 0..<perms.count {
+        perms[i].append(n)
+      }
+
+      allPermutations += perms
+      arrayCP.append(n)
+    }
+
+    return allPermutations
+  }
+```
+  
+  
+
+</details>
+
+
+
 ----
 ## Sorting and Searching 
 
